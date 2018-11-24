@@ -10,6 +10,8 @@ public class ShipControl : MonoBehaviour
 
     private bool sailsUp;
 
+    public Animator sailsAnimator;
+
     public SpriteRenderer shipSpriteRenderer;
     public CameraScript cameraScript;
     public GameObject frontWaveParent;

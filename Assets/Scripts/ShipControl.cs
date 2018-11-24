@@ -21,6 +21,7 @@ public class ShipControl : MonoBehaviour
     public AudioClip screamingSound;
     public AudioClip crashSound;
     public AudioClip splash1Sound, splash2Sound;
+    public AudioClip sailsSound;
     private AudioSource source;
 
     public float forceVerticalScale = 1f;
@@ -32,6 +33,7 @@ public class ShipControl : MonoBehaviour
     public float splash1Volume = 1f;
     public float splash2Volume = 1f;
     public float screamVolume = 1f;
+    public float sailsVolume = 0.7f;
 
     private bool forceUp = false;
     private bool flipped = false;
@@ -128,6 +130,7 @@ public class ShipControl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             sailsUp = !sailsUp;
+            source.PlayOneShot(sailsSound, sailsVolume);
         }
 
         if (sailsUp)
@@ -175,6 +178,12 @@ public class ShipControl : MonoBehaviour
             flipped = !flipped;
 
             source.PlayOneShot(screamingSound, screamVolume);
+
+            if (jumped == true)
+            {
+                jumped = false;
+                source.PlayOneShot(splash2Sound, splash2Volume);
+            }
         }
     }
 
@@ -187,7 +196,6 @@ public class ShipControl : MonoBehaviour
             && rb2D.transform.position.y < centerPosition.y + shipHeight / floatingLimit
             && rb2D.velocity.y < 0)
         {
-            Debug.Log("Ahoj 1!");
             jumped = false;
             source.PlayOneShot(splash2Sound, splash2Volume);
         }
@@ -196,7 +204,6 @@ public class ShipControl : MonoBehaviour
             && rb2D.transform.position.y > centerPosition.y - shipHeight / floatingLimit
             && rb2D.velocity.y > 0)
         {
-            Debug.Log("Ahoj 2!");
             jumped = false;
             source.PlayOneShot(splash2Sound, splash2Volume);
         }

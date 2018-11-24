@@ -355,6 +355,7 @@ MonoBehaviour:
   crashSound: {fileID: 8300000, guid: b732efb98079277438daa65b82b3f9c0, type: 3}
   splash1Sound: {fileID: 8300000, guid: dcd1f2cf172e9e843a962266cf7f56d0, type: 3}
   splash2Sound: {fileID: 8300000, guid: 68473d57b2e9e584d80376cc272ae84a, type: 3}
+  sailsSound: {fileID: 8300000, guid: 30458963a88c0174cada1e57547f60ef, type: 3}
   forceVerticalScale: 1
   forceHorizontalScale: 4
   forceJumpScale: 5
@@ -363,6 +364,7 @@ MonoBehaviour:
   splash1Volume: 0.2
   splash2Volume: 0.3
   screamVolume: 0.4
+  sailsVolume: 0.2
 --- !u!212 &64384973
 SpriteRenderer:
   m_ObjectHideFlags: 0

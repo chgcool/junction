@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShipControl : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ShipControl : MonoBehaviour
     public SpriteRenderer shipSpriteRenderer;
     public CameraScript cameraScript;
     public GameObject frontWaveParent;
+    public Text gameOverText;
 
     public float forceVerticalScale = 1f;
     public float forceHorizontalScale = 1f;
@@ -21,10 +23,13 @@ public class ShipControl : MonoBehaviour
 
     private bool forceUp = false;
     private bool flipped = false;
+    private bool gameOver = false;
 
 	// Use this for initialization
 	void Start ()
     {
+        gameOverText.gameObject.SetActive(false);
+
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         centerPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
@@ -38,16 +43,28 @@ public class ShipControl : MonoBehaviour
 	void Update ()
     {
         Floating();
-        Sailing();
-        Flip();
 
-        // jump
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (gameOver == false)
         {
-            float factor = flipped ? -1f : 1f;
-            rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
+            Sailing();
+            Flip();
+
+            // jump
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                float factor = flipped ? -1f : 1f;
+                rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
+            }
         }
 	}
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Collision happened!");
+
+        gameOver = true;
+        gameOverText.gameObject.SetActive(true);
+    }
 
     private void Floating()
     {

@@ -48,8 +48,6 @@ public class CameraScript : MonoBehaviour {
 
         transform.position = newPos;
         lastTargetPosition = target.position;
-
-        Debug.Log("Lookahead pos: " + lookAheadPos);
     }
 
     public void VerticalShift(Vector3 shiftVector)

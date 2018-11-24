@@ -12,8 +12,8 @@ public class ShipControl : MonoBehaviour
 
     public SpriteRenderer shipSpriteRenderer;
 
-    public float forceUpScale = 1f;
-    public float forceRightScale = 1f;
+    public float forceVerticalScale = 1f;
+    public float forceHorizontalScale = 1f;
     public float forceJumpScale = 10f;
     public float floatingLimit = 2f;
 
@@ -24,7 +24,6 @@ public class ShipControl : MonoBehaviour
 	void Start ()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        // shipSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         initialPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;
@@ -60,14 +59,14 @@ public class ShipControl : MonoBehaviour
         Vector3 forceToApply;
         if (forceUp == false)
         {
-            float forceScale = -1f * forceUpScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y - shipHeight / floatingLimit)));
+            float forceScale = -1f * forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y - shipHeight / floatingLimit)));
             forceToApply = Vector3.up * forceScale;
             //Debug.Log("Force up: " + forceUp);
             //Debug.Log(forceScale);
         }
         else
         {
-            float forceScale = forceUpScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y + shipHeight / floatingLimit)));
+            float forceScale = forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y + shipHeight / floatingLimit)));
             forceToApply = Vector3.up * forceScale;
             //Debug.Log("Force up: " + forceUp);
             //Debug.Log(forceScale);
@@ -91,7 +90,7 @@ public class ShipControl : MonoBehaviour
 
         if (sailsUp)
         {
-            rb2D.AddForce(forceRightScale * Vector2.right);
+            rb2D.AddForce(forceHorizontalScale * Vector2.left);
         }
     }
 }

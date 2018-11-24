@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpriteRenderer: {fileID: 1809671391}
-  forceUpScale: 4
-  forceRightScale: 0.5
+  forceVerticalScale: 1
+  forceHorizontalScale: 1
   forceJumpScale: 5
   floatingLimit: 12
 --- !u!212 &64384973
@@ -283,6 +283,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1bbc0bff5f610468e1eff05dc4066a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 64384971}
+  damping: 1
+  lookAheadFactor: 3
+  lookAheadReturnSpeed: 0.5
+  lookAheadMoveThreshold: 0.1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

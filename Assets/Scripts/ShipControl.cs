@@ -16,6 +16,11 @@ public class ShipControl : MonoBehaviour
     public GameObject frontWaveParent;
     public Text gameOverText;
 
+    public AudioClip screamingSound;
+    public AudioClip crashSound;
+    public AudioClip splash1Sound, splash2Sound;
+    private AudioSource source;
+
     public float forceVerticalScale = 1f;
     public float forceHorizontalScale = 1f;
     public float forceJumpScale = 10f;
@@ -24,6 +29,7 @@ public class ShipControl : MonoBehaviour
     private bool forceUp = false;
     private bool flipped = false;
     private bool gameOver = false;
+    private bool jumped = false;
 
 	// Use this for initialization
 	void Start ()
@@ -34,6 +40,8 @@ public class ShipControl : MonoBehaviour
         centerPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;
+
+        source = GetComponent<AudioSource>();
 
         // initial floating position
         rb2D.transform.SetPositionAndRotation(centerPosition + (Vector3.up * shipHeight / floatingLimit), Quaternion.identity);
@@ -48,19 +56,15 @@ public class ShipControl : MonoBehaviour
         {
             Sailing();
             Flip();
-
-            // jump
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                float factor = flipped ? -1f : 1f;
-                rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
-            }
+            Jump();
         }
 	}
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Collision happened!");
+
+        source.PlayOneShot(crashSound);
 
         gameOver = true;
         gameOverText.gameObject.SetActive(true);
@@ -143,6 +147,47 @@ public class ShipControl : MonoBehaviour
             cameraScript.VerticalShift(verticalShift);
 
             flipped = !flipped;
+
+            source.PlayOneShot(screamingSound);
+        }
+    }
+
+    void LateUpdate()
+    {
+        //Debug.Log("1: " + jumped + (rb2D.transform.position.y < centerPosition.y + shipHeight / floatingLimit) + (rb2D.velocity.y < 0));
+        //Debug.Log("2: " + jumped + (rb2D.transform.position.y > centerPosition.y - shipHeight / floatingLimit) + (rb2D.velocity.y > 0));
+
+        if (!flipped && jumped
+            && rb2D.transform.position.y < centerPosition.y + shipHeight / floatingLimit
+            && rb2D.velocity.y < 0)
+        {
+            Debug.Log("Ahoj 1!");
+            jumped = false;
+            source.PlayOneShot(splash2Sound);
+        }
+        
+        if (flipped && jumped
+            && rb2D.transform.position.y > centerPosition.y - shipHeight / floatingLimit
+            && rb2D.velocity.y > 0)
+        {
+            Debug.Log("Ahoj 2!");
+            jumped = false;
+            source.PlayOneShot(splash2Sound);
+        }
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (jumped == false)
+            {
+                jumped = true;
+                source.PlayOneShot(splash1Sound);
+            }
+            
+            float factor = flipped ? -1f : 1f;
+            rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
         }
     }
 }

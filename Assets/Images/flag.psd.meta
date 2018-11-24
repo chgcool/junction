@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 2cf4e1d137d16744aaf91584dfd3485a
+guid: ba99fa96d53498c47b345a955be9d8d0
 TextureImporter:
   fileIDToRecycleName:
-    21300000: clouds_0
-    21300002: clouds_1
-    21300004: clouds_2
-    21300006: clouds_3
-    21300008: clouds_4
+    21300000: flag0
+    21300002: flag1
+    21300004: flag2
+    21300006: flag3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -89,13 +88,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clouds_0
+      name: flag0
       rect:
         serializedVersion: 2
-        x: 16
-        y: 528
-        width: 344
-        height: 240
+        x: 89
+        y: 1305
+        width: 216
+        height: 133
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -103,19 +102,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e8a83e6058cb1245810680bd36fe107
+      spriteID: a9f9a8e1077cf5348a1763db05d7713c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: clouds_1
+      name: flag1
       rect:
         serializedVersion: 2
-        x: 360
-        y: 540
-        width: 407
-        height: 200
+        x: 87
+        y: 1143
+        width: 219
+        height: 154
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,19 +122,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 624b00b8626ffec40a094f97e4e51dd5
+      spriteID: b2d98fa85ab748440a788c8779214e96
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: clouds_2
+      name: flag2
       rect:
         serializedVersion: 2
-        x: 30
-        y: 223
-        width: 302
-        height: 235
+        x: 84
+        y: 989
+        width: 226
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,19 +142,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5634e703de23ad343ab33f5a38c82d28
+      spriteID: f7b777d1a620cdc41ac5519483dbbe88
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: clouds_3
+      name: flag3
       rect:
         serializedVersion: 2
-        x: 424
-        y: 284
-        width: 330
-        height: 196
+        x: 83
+        y: 819
+        width: 227
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,27 +162,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fda61cbdfda9c2740ab234e59c1e89d4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: clouds_4
-      rect:
-        serializedVersion: 2
-        x: 132
-        y: 28
-        width: 557
-        height: 212
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5047d27f04a2cae449d09759f8b28222
+      spriteID: cf0a7f9eb18578d44ab05291dd54e985
       vertices: []
       indices: 
       edges: []
@@ -191,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9adfbbea2cbfccb48a8002dc488a921a
+    spriteID: 2be6da3487d05214c985cf88c6af2162
     vertices: []
     indices: 
     edges: []

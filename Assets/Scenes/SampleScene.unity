@@ -356,9 +356,13 @@ MonoBehaviour:
   splash1Sound: {fileID: 8300000, guid: dcd1f2cf172e9e843a962266cf7f56d0, type: 3}
   splash2Sound: {fileID: 8300000, guid: 68473d57b2e9e584d80376cc272ae84a, type: 3}
   forceVerticalScale: 1
-  forceHorizontalScale: 1
+  forceHorizontalScale: 4
   forceJumpScale: 5
   floatingLimit: 12
+  crashVolume: 0.3
+  splash1Volume: 0.2
+  splash2Volume: 0.3
+  screamVolume: 0.4
 --- !u!212 &64384973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -603,7 +607,7 @@ MonoBehaviour:
   hasLeftBuddy: 0
   hasRightBuddy: 0
   minY: -3
-  maxY: 0
+  maxY: 1
   scalingX: 10
   minSpacing: 12
 --- !u!1 &519420028
@@ -715,7 +719,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -810,7 +814,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1374,9 +1378,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Keys which do something:
+  m_Text: 'Press S for full sail.
 
-    S, F, Space'
+    Also try J and Space.'
 --- !u!222 &1068870705
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -28,10 +28,16 @@ public class ShipControl : MonoBehaviour
     public float forceJumpScale = 10f;
     public float floatingLimit = 2f;
 
+    public float crashVolume = 0.6f;
+    public float splash1Volume = 1f;
+    public float splash2Volume = 1f;
+    public float screamVolume = 1f;
+
     private bool forceUp = false;
     private bool flipped = false;
     private bool gameOver = false;
     private bool jumped = false;
+    private bool crashed = false;
 
 	// Use this for initialization
 	void Start ()
@@ -81,10 +87,13 @@ public class ShipControl : MonoBehaviour
     {
         Debug.Log("Collision happened!");
 
-        source.PlayOneShot(crashSound);
-
-        gameOver = true;
-        gameOverPanel.SetActive(true);
+        if (crashed == false)
+        {
+            source.PlayOneShot(crashSound, crashVolume);
+            gameOver = true;
+            gameOverPanel.SetActive(true);
+            crashed = true;
+        }
     }
 
     private void Floating()
@@ -165,7 +174,7 @@ public class ShipControl : MonoBehaviour
 
             flipped = !flipped;
 
-            source.PlayOneShot(screamingSound);
+            source.PlayOneShot(screamingSound, screamVolume);
         }
     }
 
@@ -180,7 +189,7 @@ public class ShipControl : MonoBehaviour
         {
             Debug.Log("Ahoj 1!");
             jumped = false;
-            source.PlayOneShot(splash2Sound);
+            source.PlayOneShot(splash2Sound, splash2Volume);
         }
         
         if (flipped && jumped
@@ -189,18 +198,18 @@ public class ShipControl : MonoBehaviour
         {
             Debug.Log("Ahoj 2!");
             jumped = false;
-            source.PlayOneShot(splash2Sound);
+            source.PlayOneShot(splash2Sound, splash2Volume);
         }
     }
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && jumped == false)
         {
             if (jumped == false)
             {
                 jumped = true;
-                source.PlayOneShot(splash1Sound);
+                source.PlayOneShot(splash1Sound, splash1Volume);
             }
             
             float factor = flipped ? -1f : 1f;

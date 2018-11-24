@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ShipControl : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class ShipControl : MonoBehaviour
     public SpriteRenderer shipSpriteRenderer;
     public CameraScript cameraScript;
     public GameObject frontWaveParent;
-    public Text gameOverText;
+    public GameObject gameOverPanel;
+    public Text instructionText;
 
     public AudioClip screamingSound;
     public AudioClip crashSound;
@@ -34,7 +36,7 @@ public class ShipControl : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        gameOverText.gameObject.SetActive(false);
+        gameOverPanel.SetActive(false);
 
         rb2D = gameObject.GetComponent<Rigidbody2D>();
         centerPosition = rb2D.transform.position;
@@ -45,6 +47,8 @@ public class ShipControl : MonoBehaviour
 
         // initial floating position
         rb2D.transform.SetPositionAndRotation(centerPosition + (Vector3.up * shipHeight / floatingLimit), Quaternion.identity);
+
+        StartCoroutine(ShowInstructions());
     }
 	
 	// Update is called once per frame
@@ -58,6 +62,19 @@ public class ShipControl : MonoBehaviour
             Flip();
             Jump();
         }
+
+        if (gameOver == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                Application.Quit();
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
 	}
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -67,7 +84,7 @@ public class ShipControl : MonoBehaviour
         source.PlayOneShot(crashSound);
 
         gameOver = true;
-        gameOverText.gameObject.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
     private void Floating()
@@ -189,5 +206,13 @@ public class ShipControl : MonoBehaviour
             float factor = flipped ? -1f : 1f;
             rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
         }
+    }
+
+    private IEnumerator ShowInstructions()
+    {
+        Debug.Log("Entered coroutine!");
+        yield return new WaitForSeconds(3f);
+        Debug.Log("About to hide the instructions!");
+        instructionText.gameObject.SetActive(false); 
     }
 }

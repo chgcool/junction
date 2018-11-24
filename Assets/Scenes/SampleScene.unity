@@ -350,7 +350,7 @@ MonoBehaviour:
   cameraScript: {fileID: 519420030}
   frontWaveParent: {fileID: 1972845499}
   gameOverPanel: {fileID: 1091398895}
-  instructionText: {fileID: 1032906902}
+  instructionText: {fileID: 1068870704}
   screamingSound: {fileID: 8300000, guid: 9e0baea6c52ba98458e9706c5576e572, type: 3}
   crashSound: {fileID: 8300000, guid: b732efb98079277438daa65b82b3f9c0, type: 3}
   splash1Sound: {fileID: 8300000, guid: dcd1f2cf172e9e843a962266cf7f56d0, type: 3}
@@ -1243,7 +1243,7 @@ GameObject:
   - component: {fileID: 1032906903}
   - component: {fileID: 1032906902}
   m_Layer: 5
-  m_Name: InstructionsText
+  m_Name: FinalInstructionsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1318,7 +1318,7 @@ GameObject:
   - component: {fileID: 1068870705}
   - component: {fileID: 1068870704}
   m_Layer: 5
-  m_Name: Text
+  m_Name: IntroInstructionsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1339,7 +1339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 242, y: -78}
+  m_AnchoredPosition: {x: 242, y: -122}
   m_SizeDelta: {x: 270.7, y: 49.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068870704

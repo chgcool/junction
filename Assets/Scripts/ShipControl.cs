@@ -5,11 +5,12 @@ using UnityEngine;
 public class ShipControl : MonoBehaviour
 {
     private Rigidbody2D rb2D;
-    private SpriteRenderer shipSpriteRenderer;
     private Vector3 initialPosition;
     private float shipHeight;
 
     private bool sailsUp;
+
+    public SpriteRenderer shipSpriteRenderer;
 
     public float forceUpScale = 1f;
     public float forceRightScale = 1f;
@@ -23,7 +24,7 @@ public class ShipControl : MonoBehaviour
 	void Start ()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        shipSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        // shipSpriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         initialPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;

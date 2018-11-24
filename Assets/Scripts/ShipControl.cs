@@ -13,6 +13,8 @@ public class ShipControl : MonoBehaviour
 
     public float forceUpScale = 1f;
     public float forceRightScale = 1f;
+    public float floatingLimit = 2f;
+    private bool forceUp = false;
 
 	// Use this for initialization
 	void Start ()
@@ -22,18 +24,39 @@ public class ShipControl : MonoBehaviour
         initialPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;
+
+        rb2D.transform.SetPositionAndRotation(initialPosition + (Vector3.up * shipHeight), Quaternion.identity);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         // floating
-        if (rb2D.transform.position.y < initialPosition.y - (shipHeight / 2))
+        Vector3 forceToApply;
+        if (forceUp == false)
         {
-            Debug.Log("We're falling, captain!");
-            rb2D.AddForce(forceUpScale * Vector2.up);
+            float forceScale = -1f * forceUpScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y - shipHeight / floatingLimit)));
+            forceToApply = Vector3.up * forceScale;
+            //Debug.Log("Force up: " + forceUp);
+            //Debug.Log(forceScale);
+        }
+        else
+        {
+            float forceScale = forceUpScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y + shipHeight / floatingLimit)));
+            forceToApply = Vector3.up * forceScale;
+            //Debug.Log("Force up: " + forceUp);
+            //Debug.Log(forceScale);
         }
 
+        if (forceToApply.y < 0 && rb2D.transform.position.y < initialPosition.y - shipHeight / floatingLimit
+            || forceToApply.y > 0 && rb2D.transform.position.y > initialPosition.y + shipHeight / floatingLimit)
+        {
+            forceUp = !forceUp;
+        }
+
+        rb2D.AddForce(forceToApply);
+
+        // sailing
         if (Input.GetKeyDown(KeyCode.S))
         {
             sailsUp = !sailsUp;

@@ -9,6 +9,8 @@ public class Tiling : MonoBehaviour
     private bool hasLeftBuddy = false;
     private bool hasRightBuddy = false;
 
+    public bool allowOverlapping = true;
+
     private float cameraHorizontalExtend;
     private float spriteWidth;
 
@@ -49,7 +51,7 @@ public class Tiling : MonoBehaviour
         Transform newBuddy = Instantiate(transform);
         newBuddy.parent = transform.parent;
 
-        newBuddy.position = new Vector3(transform.position.x + spriteWidth * leftOrRight - leftOrRight, transform.position.y, transform.position.z);
+        newBuddy.position = new Vector3(transform.position.x + spriteWidth * leftOrRight - leftOrRight * (allowOverlapping ? 1 : 0.1f), transform.position.y, transform.position.z);
 
         // scaling for smooth connection of tiles
         if (reverseScale)

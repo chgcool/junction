@@ -1382,7 +1382,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Press S for full sail.
 
-    Also try J and Space.'
+    Also try F and Space.'
 --- !u!222 &1068870705
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class CameraScript : MonoBehaviour {
 
     private Vector3 offset;
 
+    private Vector3 cameraCenter = Vector3.zero;
+
     // Use this for initialization
     private void Start()
     {
@@ -37,7 +39,7 @@ public class CameraScript : MonoBehaviour {
         }
         else
         {
-            lookAheadPos = Vector3.MoveTowards(lookAheadPos, Vector3.zero, Time.deltaTime * lookAheadReturnSpeed);
+            lookAheadPos = Vector3.MoveTowards(lookAheadPos, cameraCenter, Time.deltaTime * lookAheadReturnSpeed);
         }
 
         Vector3 aheadTargetPos = lookAheadPos + Vector3.forward * offsetZ;
@@ -46,10 +48,13 @@ public class CameraScript : MonoBehaviour {
 
         transform.position = newPos;
         lastTargetPosition = target.position;
+
+        Debug.Log("Lookahead pos: " + lookAheadPos);
     }
 
     public void VerticalShift(Vector3 shiftVector)
     {
+        cameraCenter += shiftVector;
         lookAheadPos += shiftVector;
     }
 }

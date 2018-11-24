@@ -13,8 +13,11 @@ public class ShipControl : MonoBehaviour
 
     public float forceUpScale = 1f;
     public float forceRightScale = 1f;
+    public float forceJumpScale = 10f;
     public float floatingLimit = 2f;
+
     private bool forceUp = false;
+    private bool flipped = false;
 
 	// Use this for initialization
 	void Start ()
@@ -25,13 +28,34 @@ public class ShipControl : MonoBehaviour
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;
 
-        rb2D.transform.SetPositionAndRotation(initialPosition + (Vector3.up * shipHeight), Quaternion.identity);
+        // initial floating position
+        rb2D.transform.SetPositionAndRotation(initialPosition + (Vector3.up * shipHeight / floatingLimit), Quaternion.identity);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        // floating
+        Floating();
+
+        Sailing();
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Vector3 newScale = rb2D.transform.localScale;
+            newScale.y = -newScale.y;
+            rb2D.transform.localScale = newScale;
+            flipped = !flipped;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            float factor = flipped ? -1f : 1f;
+            rb2D.AddForce(Vector2.up * forceJumpScale * factor, ForceMode2D.Impulse);
+        }
+	}
+
+    private void Floating()
+    {
         Vector3 forceToApply;
         if (forceUp == false)
         {
@@ -55,8 +79,10 @@ public class ShipControl : MonoBehaviour
         }
 
         rb2D.AddForce(forceToApply);
+    }
 
-        // sailing
+    private void Sailing()
+    {
         if (Input.GetKeyDown(KeyCode.S))
         {
             sailsUp = !sailsUp;
@@ -66,5 +92,5 @@ public class ShipControl : MonoBehaviour
         {
             rb2D.AddForce(forceRightScale * Vector2.right);
         }
-	}
+    }
 }

@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceUpScale: 4
   forceRightScale: 0.5
+  forceJumpScale: 100
   floatingLimit: 12
 --- !u!1 &519420028
 GameObject:

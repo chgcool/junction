@@ -32,7 +32,17 @@ public class Tiling : MonoBehaviour
             makeNewBuddy(-1);
             hasLeftBuddy = true;
         }
+        if (invisible())
+        {
+            Destroy(gameObject);
+        }
 	}
+
+    private bool invisible()
+    {
+        return (transform.position.x - spriteWidth > Camera.main.transform.position.x + cameraHorizontalExtend ||
+                transform.position.x + spriteWidth < Camera.main.transform.position.x - cameraHorizontalExtend);
+    }
 
     private void makeNewBuddy(int leftOrRight)
     {

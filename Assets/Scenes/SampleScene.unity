@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipSpriteRenderer: {fileID: 1809671391}
+  cameraScript: {fileID: 519420030}
   forceVerticalScale: 1
   forceHorizontalScale: 1
   forceJumpScale: 5

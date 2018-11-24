@@ -47,4 +47,9 @@ public class CameraScript : MonoBehaviour {
         transform.position = newPos;
         lastTargetPosition = target.position;
     }
+
+    public void VerticalShift(Vector3 shiftVector)
+    {
+        lookAheadPos += shiftVector;
+    }
 }

@@ -12,6 +12,7 @@ public class ShipControl : MonoBehaviour
 
     public SpriteRenderer shipSpriteRenderer;
     public CameraScript cameraScript;
+    public GameObject frontWaveParent;
 
     public float forceVerticalScale = 1f;
     public float forceHorizontalScale = 1f;
@@ -97,19 +98,30 @@ public class ShipControl : MonoBehaviour
             rb2D.transform.localScale = newScale;
 
             Vector3 verticalShift;
+            Color frontWaveNewColor;
+            SpriteRenderer[] frontWaveChildrenSpriteRenderers = frontWaveParent.GetComponentsInChildren<SpriteRenderer>();
 
             if (flipped)
             {
                 verticalShift = (Vector3.up * shipHeight);
+                frontWaveNewColor = frontWaveChildrenSpriteRenderers[0].color;
+                frontWaveNewColor.a = 1f;
+            
             }
             else
             {
                 verticalShift = (Vector3.down * shipHeight);
-                
+                frontWaveNewColor = frontWaveChildrenSpriteRenderers[0].color;
+                frontWaveNewColor.a = 0.3f;
             }
 
             rb2D.transform.position += verticalShift;
             centerPosition += verticalShift;
+
+            foreach (var childSpriteRenderer in frontWaveChildrenSpriteRenderers)
+            {
+                childSpriteRenderer.color = frontWaveNewColor;
+            }
 
             cameraScript.VerticalShift(verticalShift);
 

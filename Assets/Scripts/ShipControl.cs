@@ -5,12 +5,13 @@ using UnityEngine;
 public class ShipControl : MonoBehaviour
 {
     private Rigidbody2D rb2D;
-    private Vector3 initialPosition;
+    private Vector3 centerPosition;
     private float shipHeight;
 
     private bool sailsUp;
 
     public SpriteRenderer shipSpriteRenderer;
+    public CameraScript cameraScript;
 
     public float forceVerticalScale = 1f;
     public float forceHorizontalScale = 1f;
@@ -24,29 +25,22 @@ public class ShipControl : MonoBehaviour
 	void Start ()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
-        initialPosition = rb2D.transform.position;
+        centerPosition = rb2D.transform.position;
         shipHeight = shipSpriteRenderer.sprite.bounds.size.y * shipSpriteRenderer.gameObject.transform.localScale.y;
         sailsUp = false;
 
         // initial floating position
-        rb2D.transform.SetPositionAndRotation(initialPosition + (Vector3.up * shipHeight / floatingLimit), Quaternion.identity);
+        rb2D.transform.SetPositionAndRotation(centerPosition + (Vector3.up * shipHeight / floatingLimit), Quaternion.identity);
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         Floating();
-
         Sailing();
+        Flip();
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Vector3 newScale = rb2D.transform.localScale;
-            newScale.y = -newScale.y;
-            rb2D.transform.localScale = newScale;
-            flipped = !flipped;
-        }
-
+        // jump
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float factor = flipped ? -1f : 1f;
@@ -59,21 +53,21 @@ public class ShipControl : MonoBehaviour
         Vector3 forceToApply;
         if (forceUp == false)
         {
-            float forceScale = -1f * forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y - shipHeight / floatingLimit)));
+            float forceScale = -1f * forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (centerPosition.y - shipHeight / floatingLimit)));
             forceToApply = Vector3.up * forceScale;
             //Debug.Log("Force up: " + forceUp);
             //Debug.Log(forceScale);
         }
         else
         {
-            float forceScale = forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (initialPosition.y + shipHeight / floatingLimit)));
+            float forceScale = forceVerticalScale * Mathf.Abs((rb2D.transform.position.y - (centerPosition.y + shipHeight / floatingLimit)));
             forceToApply = Vector3.up * forceScale;
             //Debug.Log("Force up: " + forceUp);
             //Debug.Log(forceScale);
         }
 
-        if (forceToApply.y < 0 && rb2D.transform.position.y < initialPosition.y - shipHeight / floatingLimit
-            || forceToApply.y > 0 && rb2D.transform.position.y > initialPosition.y + shipHeight / floatingLimit)
+        if (forceToApply.y < 0 && rb2D.transform.position.y < centerPosition.y - shipHeight / floatingLimit
+            || forceToApply.y > 0 && rb2D.transform.position.y > centerPosition.y + shipHeight / floatingLimit)
         {
             forceUp = !forceUp;
         }
@@ -91,6 +85,35 @@ public class ShipControl : MonoBehaviour
         if (sailsUp)
         {
             rb2D.AddForce(forceHorizontalScale * Vector2.left);
+        }
+    }
+
+    void Flip()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Vector3 newScale = rb2D.transform.localScale;
+            newScale.y = -newScale.y;
+            rb2D.transform.localScale = newScale;
+
+            Vector3 verticalShift;
+
+            if (flipped)
+            {
+                verticalShift = (Vector3.up * shipHeight);
+            }
+            else
+            {
+                verticalShift = (Vector3.down * shipHeight);
+                
+            }
+
+            rb2D.transform.position += verticalShift;
+            centerPosition += verticalShift;
+
+            cameraScript.VerticalShift(verticalShift);
+
+            flipped = !flipped;
         }
     }
 }

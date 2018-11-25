@@ -180,7 +180,10 @@ public class ShipControl : MonoBehaviour
 
             flipped = !flipped;
 
-            source.PlayOneShot(screamingSound, screamVolume);
+            if (flipped == true)
+            {
+                source.PlayOneShot(screamingSound, screamVolume);
+            }
 
             if (jumped == true)
             {
@@ -230,7 +233,7 @@ public class ShipControl : MonoBehaviour
     private IEnumerator ShowInstructions()
     {
         // Debug.Log("Entered coroutine!");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         // Debug.Log("About to hide the instructions!");
         instructionText.gameObject.SetActive(false); 
     }
